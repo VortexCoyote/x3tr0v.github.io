@@ -1,0 +1,10 @@
+---
+layout: post
+img: thumbnail_spite.png
+title: Spite
+description: 3D Top Down RPG
+onhome: true
+project: true
+---
+
+![](../assets/img/thumbnail_spite.png)

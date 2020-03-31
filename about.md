@@ -3,7 +3,6 @@ layout: page
 title: "About"
 ---
 
-I'm an engine/graphics programmer with a passion for creating cool things! 
-I am currently looking for an internship!
+I'm an engine/tools/shader programmer who loves making other people happy!
 
-[Here](../assets/resume.pdf) is my resume.
+[Here](../assets/resume.txt) is my resume.

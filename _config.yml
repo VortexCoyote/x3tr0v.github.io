@@ -1,8 +1,8 @@
 title: "Portfolio"
-author: "Christopher Gullberg Brady"
+author: "Andreas Winther Sorman"
 description: "My Portfolio"
 baseurl: /
-url: "www.christophergullbergbrady.com"
+url: "http://www.andreaswinthersorman.com/"
 
 # Jekyll settings
 permalink: /:title/          # see https://jekyllrb.com/docs/permalinks/
@@ -12,22 +12,22 @@ excerpt_separator: "\n\n\n"  # indicates the end of the excerpt by two blank lin
 show_excerpts: false          # show article previews on the home page instead of headlines
 hide_title: true            # remove site heading in the header
 post_footer: true            # show previous and next links at the end of each post
-date_format: ""     # see http://shopify.github.io/liquid/filters/date/
+date_format: ""              # see http://shopify.github.io/liquid/filters/date/
 
 # Theme settings
-style: default               # choose between "default", "contrast" and "minimal"
+style: minimal               # choose between "default", "contrast" and "minimal"
 dark_theme: true            # enables dark mode
 
 navigation:                  # (optional) site navigation in the header
   - index.html
   - archive.md
-  - flatline.md
+  - oddbox.md
   - about.md
 
 icons:                       # (optional) icons in the header, see http://fontawesome.com/icons
-  envelope: "mailto:christopher.gullbergbrady@gmail.com"
-  github: "https://github.com/KyaZero"
-  linkedin: "https://www.linkedin.com/in/christopher-gullberg-brady"
+  envelope: "mailto:wianso98@gmail.com"
+  github: "https://github.com/VortexCoyote"
+  linkedin: "https://www.linkedin.com/in/andreas-winther-sorman-b49065b5/"
   # rss: "/feed.xml"
 
 comments:                    # embed disqus or isso comments
