@@ -25,8 +25,9 @@ The goal of my specialization course at The Game Assembly was to write an editor
 - [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
-- [The Editing and placement of "BPM Points"](#the-editing-and-placement-of-bpm-points)
+- [Conclusion](#conclusion)
 - [Resources](#resources)
+
 
 
 ## What is osu!mania?
@@ -205,10 +206,13 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 ```
 `DrawWaveFormSliceAtIndex` is used to draw the slice, and uses some magic math to account for zoom levels.
 
+## Conclusion
+I'm pretty happy with how Encore turned out, I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful progress, since I encountered problems such as compatability, adhering to file formats and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
+
 ## Resources
-[Encore](https://github.com/VortexCoyote/Encore)
-[osu!](http://osu.ppy.sh/)
-[osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania)
-[.osu fileformat documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format))
-[openFrameworks](https://openframeworks.cc/)
-[Dear ImGui](https://github.com/ocornut/imgui)
+- [Encore](https://github.com/VortexCoyote/Encore)
+- [osu!](http://osu.ppy.sh/)
+- [osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania)
+- [.osu fileformat documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format))
+- [openFrameworks](https://openframeworks.cc/)
+- [Dear ImGui](https://github.com/ocornut/imgui)
