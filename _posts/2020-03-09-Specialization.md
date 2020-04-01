@@ -25,7 +25,7 @@ The goal of my specialization course at The Game Assembly write an editor to a g
 - [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
-- [The Editing and placement of "BPM Points"](#the-editing-and-placement-of-"bpm-points")
+- [The Editing and placement of "BPM Points"](#the-editing-and-placement-of-bpm-points)
 - [Resources](#resources)
 
 ## What is osu!mania?
@@ -104,6 +104,6 @@ With note rendering in place, I was worried about the next potential performance
 
 
 ## Rendering the waveform efficiently 
-## The Editing and placement of "BPM Points"
+## The Editing and placement of BPM Points
 
 ## Resources
