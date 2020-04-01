@@ -13,13 +13,13 @@ onhome: true
 
 ## Details:
 - 5 Weeks Half-Time
-- Written in Visual C++ within openframeworks, with the ImGui and BASS library
+- Written in Visual C++ within openFrameworks, with the ImGui and BASS library
 - Had prepared a small engine for parsing beatmaps and rendering them before the start of the specialization course
 
 ## Goal and Purpose
-The goal of my specialization course at The Game Assembly write an editor to a game called [osu!](https://osu.ppy.sh/), and for a specific gamemode within that game called [osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania). The purpose of this project was to get more experience writing a tool for a specific game, while encountering new and unique problems along the way. 
+The goal of my specialization course at The Game Assembly was to write an editor for a game called [osu!](https://osu.ppy.sh/), and for a specific gamemode within that game called [osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania). The purpose of this project was to get more experience writing a tool for a specific game, while encountering new and unique problems along the way. 
 
-## Contents
+## Content
 - [What is osu!mania?](#what-is-osu!mania?)
 - [The fileformat](#the-fileformat)
 - [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
@@ -139,7 +139,7 @@ mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
 myWaveFormData = (float*)std::malloc(mySongByteLength);
 BASS_ChannelGetData(decoder, myWaveFormData, mySongByteLength);
 ```
-Every first float in the data represents the right ear channel, and every second represents the left ear channel. The first iteration of the waveform was drawn with individual lines, which was of course pretty expensive. But with the help of the openframeworks framework, I came up with a reasonable solution.
+Every first float in the data represents the right ear channel, and every second represents the left ear channel. The first iteration of the waveform was drawn with individual lines, which was of course pretty expensive. But with the help of the openFrameworks framework, I came up with a reasonable solution.
 
 Instead of drawing individual lines of the waveform every frame, I used [ofFbo](https://openframeworks.cc/documentation/gl/ofFbo/)'s to pre-render the waveform into "slices", and saved them in a std::vector. This way, I could figure out which slice to render based on the current time, and only render the visible slices on screen. 
 ```cpp
@@ -206,3 +206,9 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 `DrawWaveFormSliceAtIndex` is used to draw the slice, and uses some magic math to account for zoom levels.
 
 ## Resources
+[Encore](https://github.com/VortexCoyote/Encore)
+[osu!](http://osu.ppy.sh/)
+[osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania)
+[.osu fileformat documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format))
+[openFrameworks](https://openframeworks.cc/)
+[Dear ImGui](https://github.com/ocornut/imgui)
