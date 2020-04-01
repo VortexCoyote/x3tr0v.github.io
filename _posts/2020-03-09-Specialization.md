@@ -136,8 +136,8 @@ All of these cover most cases, including if the collection is mostly sorted, whi
 Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. Being stuck to the audio library [BASS](https://www.un4seen.com/) (since osu! uses BASS, I need to use BASS to maintain compatability in terms of audio encoding and decoding), this was a bit of a pain since the documentation is old. But searching through forum posts, I eventually found out that you can use the `BASS_ChannelGetData()` function to get a pointer to the audio data. 
 ```cpp
 mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
-myWaveFormData = (float*)std::malloc(mySongByteLength); 
-mySongByteLength = BASS_ChannelGetData(decoder, myWaveFormData, mySongByteLength);
+myWaveFormData = (float*)std::malloc(mySongByteLength);
+BASS_ChannelGetData(decoder, myWaveFormData, mySongByteLength);
 ```
 Every first float in the data represents the right ear channel, and every second represents the left ear channel. The first iteration of the waveform was drawn with individual lines, which was of course pretty expensive. But with the help of the openframeworks framework, I came up with a reasonable solution.
 
@@ -153,10 +153,9 @@ for (int t = 0; t < songLengthMS; t += myWaveFormSliceSize)
 	int time = -1;
 	for (int y = 0; y < myWaveFormSliceSize; y += 1)
 	{
-		int newY = y;
-		newY -= (EditorConfig::hitLinePosition);
-		newY = int(float(newY));
-		int timePointMS = newY + t;
+		int visualY = y;
+		visualY -= (EditorConfig::hitLinePosition);
+		int timePointMS = visualY + t;
 		if (first == true)
 		{
 			time = timePointMS;
@@ -165,7 +164,7 @@ for (int t = 0; t < songLengthMS; t += myWaveFormSliceSize)
 		if (timePointMS <= BASS_ChannelBytes2Seconds(myStreamHandle, mySongByteLength) * 1000 && timePointMS >= 0)
 		{
 			size_t index = BASS_ChannelSeconds2Bytes(myStreamHandle, double(timePointMS) / 1000.0) / 2;
-			if (index < mySongByteLength / sizeof(int))
+			if (index < mySongByteLength / sizeof(float))
 			{
 				float width1 = abs(myWaveFormData[index]);
 				float width2 = abs(myWaveFormData[index + 1]);
@@ -185,6 +184,25 @@ for (int t = 0; t < songLengthMS; t += myWaveFormSliceSize)
 	myWaveFormStructure.push_back({ surface, time });
 }
 ```
-For rendering
+For rendering, it was as easy as finding the index of a several screenpoints with `(timePointMS / myWaveFormSliceSize)`, and rendering those slices with that index. 
+```cpp
+for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSliceSize)
+{
+	int visulY = y;
+	
+	//find where visulY (a point on screen) is in the song in milliseconds
+	visulY -= EditorConfig::hitLinePosition;
+	visulY = int(float(visulY) / EditorConfig::scale);
+	
+	int timePointMS = visulY + int((myCurrentTime * 1000.0) + 0.5);
+	
+	int index = (timePointMS / myWaveFormSliceSize);
+	if (index >= 0 && index < myWaveFormStructure.size())
+	{
+		DrawWaveFormSliceAtIndex(index);
+	}
+}
+```
+`DrawWaveFormSliceAtIndex` is used to draw the slice, and uses some magic math to account for zoom levels.
 
 ## Resources
