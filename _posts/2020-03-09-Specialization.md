@@ -102,35 +102,7 @@ for (unsigned int noteIndex = myLastObjectIndex; noteIndex < myObjectData->size(
 
 
 ## About note placement
-With note rendering in place, I was worried about the next potential performance hog. Since the note collection needs to be sorted at all times, inserting a new note means that I would push back the new note into the collection, and sort it. With `std::sort` this is surprisingly fast. Why? Well, looking at the Visual C++ implementation for `std::sort`, we can see that it uses a combination of quick sort, heap sort and insertion sort for different cases. 
-```cpp
-template <class _RanIt, class _Pr>
-void _Sort_unchecked(_RanIt _First, _RanIt _Last, _Iter_diff_t<_RanIt> _Ideal, _Pr _Pred) {
-    // order [_First, _Last), using _Pred
-    _Iter_diff_t<_RanIt> _Count;
-    while (_ISORT_MAX < (_Count = _Last - _First) && 0 < _Ideal) { // divide and conquer by quicksort
-        auto _Mid = _Partition_by_median_guess_unchecked(_First, _Last, _Pred);
-        // TRANSITION, VSO#433486
-        _Ideal = (_Ideal >> 1) + (_Ideal >> 2); // allow 1.5 log2(N) divisions
-
-        if (_Mid.first - _First < _Last - _Mid.second) { // loop on second half
-            _Sort_unchecked(_First, _Mid.first, _Ideal, _Pred);
-            _First = _Mid.second;
-        } else { // loop on first half
-            _Sort_unchecked(_Mid.second, _Last, _Ideal, _Pred);
-            _Last = _Mid.first;
-        }
-    }
-
-    if (_ISORT_MAX < _Count) { // heap sort if too many divisions
-        _Make_heap_unchecked(_First, _Last, _Pred);
-        _Sort_heap_unchecked(_First, _Last, _Pred);
-    } else if (2 <= _Count) {
-        _Insertion_sort_unchecked(_First, _Last, _Pred); // small
-    }
-}
-```
-All of these cover most cases, including if the collection is mostly sorted, which it is in my case.
+With note rendering in place, I was worried about the next potential performance hog. Since the note collection needs to be sorted at all times, inserting a new note means that I would push back the new note into the collection, and sort it. With `std::sort` this is surprisingly fast. Why? Well, looking at the Visual C++ implementation for `std::sort`, we can see that it uses a combination of quick sort, heap sort and insertion sort for different cases. All of these cover most cases, including if the collection is mostly sorted, which it is in my case.
 
 
 ## Rendering the waveform efficiently 
