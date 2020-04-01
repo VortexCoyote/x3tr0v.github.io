@@ -106,13 +106,13 @@ With note rendering in place, I was worried about the next potential performance
 
 
 ## Rendering the waveform efficiently 
-Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. Being stuck to the audio library [BASS](https://www.un4seen.com/) (since osu! uses BASS, I need to use BASS to maintain compatability in terms of audio encoding and decoding), this was a bit of a pain since the documentation is old. But searching through forum posts, I eventually found out that you can use the `BASS_ChannelGetData()` function to get a pointer to the audio data. 
+Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. Being required to the audio library [BASS](https://www.un4seen.com/) (I use BASS to maintain compatability), this was a bit of a pain since the documentation is old. But searching through forum posts, I eventually found out that you can use the `BASS_ChannelGetData()` function to get a pointer to the audio data. 
 ```cpp
 mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
 myWaveFormData = (float*)std::malloc(mySongByteLength);
 BASS_ChannelGetData(decoder, myWaveFormData, mySongByteLength);
 ```
-Every first float in the data represents the right ear channel, and every second represents the left ear channel. The first iteration of the waveform was drawn with individual lines, which was of course pretty expensive. But with the help of the openFrameworks framework, I came up with a reasonable solution.
+Every first float in the data represents the right ear channel, and every second represents the left ear channel. The first iteration of the waveform was drawn with individual lines, which was of course pretty expensive.
 
 Instead of drawing individual lines of the waveform every frame, I used [ofFbo](https://openframeworks.cc/documentation/gl/ofFbo/)'s to pre-render the waveform into "slices", and saved them in a std::vector. This way, I could figure out which slice to render based on the current time, and only render the visible slices on screen. 
 ```cpp
@@ -176,7 +176,7 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 	}
 }
 ```
-`DrawWaveFormSliceAtIndex` is used to draw the slice, and uses some magic math to account for zoom levels.
+`DrawWaveFormSliceAtIndex` is used to draw the slices based various editor parameters.
 
 ## Conclusion
 I'm pretty happy with how Encore turned out, I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful progress, since I encountered problems such as compatability, adhering to file formats and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
