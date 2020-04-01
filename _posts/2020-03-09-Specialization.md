@@ -47,46 +47,46 @@ The naive way of doing this would be to iterate over every note in the beatmap, 
 
 The solution to this is to essentially keep the notes in their collection sorted after their `timePoint`, and keep track of an index of where the screen's first visible note is. Everytime the user decides to scroll in in the timeline, the index gets updated in relation to it's last value. 
 ```cpp
-	for (unsigned int noteIndex = myLastObjectIndex; noteIndex < myObjectData->size(); noteIndex++)
+for (unsigned int noteIndex = myLastObjectIndex; noteIndex < myObjectData->size(); noteIndex++)
+{
+	double noteTimePoint = GetScreenTimePoint((*myObjectData)[noteIndex]->timePoint, aTimePoint);
+
+	//render all visible notes
+	if (noteTimePoint >= 0)
 	{
-		double noteTimePoint = GetScreenTimePoint((*myObjectData)[noteIndex]->timePoint, aTimePoint);
+		myLastObjectIndex = noteIndex;
+		myVisibleObjects.clear();
 
-		//render all visible notes
-		if (noteTimePoint >= 0)
+		if (noteIndex > 0)
 		{
-			myLastObjectIndex = noteIndex;
-			myVisibleObjects.clear();
-
-			if (noteIndex > 0)
-			{
-				T* itemBack = (*myObjectData)[noteIndex - 1];
-				myVisibleObjects.push_back(itemBack);
-			}
-
-			for (unsigned int visibleNoteIndex = noteIndex; visibleNoteIndex < myObjectData->size(); visibleNoteIndex++)
-			{
-				double visibleNoteTimePoint = GetScreenTimePoint((*myObjectData)[visibleNoteIndex]->timePoint, aTimePoint);
-
-				if (visibleNoteTimePoint <= ofGetScreenHeight())
-				{
-					T* item = (*myObjectData)[visibleNoteIndex];
-
-					item->visibleTimePoint = visibleNoteTimePoint;
-					DrawRoutine(item, visibleNoteTimePoint);
-					
-					myVisibleObjects.push_back(item);
-				}
-				else
-				{
-					T* itemFront = (*myObjectData)[visibleNoteIndex];
-					myVisibleObjects.push_back(itemFront);
-
-					break;
-				}
-			}
-			break;
+			T* itemBack = (*myObjectData)[noteIndex - 1];
+			myVisibleObjects.push_back(itemBack);
 		}
+
+		for (unsigned int visibleNoteIndex = noteIndex; visibleNoteIndex < myObjectData->size(); visibleNoteIndex++)
+		{
+			double visibleNoteTimePoint = GetScreenTimePoint((*myObjectData)[visibleNoteIndex]->timePoint, aTimePoint);
+
+			if (visibleNoteTimePoint <= ofGetScreenHeight())
+			{
+				T* item = (*myObjectData)[visibleNoteIndex];
+
+				item->visibleTimePoint = visibleNoteTimePoint;
+				DrawRoutine(item, visibleNoteTimePoint);
+					
+				myVisibleObjects.push_back(item);
+			}
+			else
+			{
+				T* itemFront = (*myObjectData)[visibleNoteIndex];
+				myVisibleObjects.push_back(itemFront);
+
+				break;
+			}
+		}
+		break;
 	}
+}
 ```
 `myLastObjectIndex` is the index of the first visible note, `GetScreenTimePoint` is used to translate the notes timepoint to a visual point on screen in relation to where the user is in the timeline. As soon as `noteTimePoint` bigger than 0, it means that the first note is visible on screen. From that on I iterate from the current note index, render all those notes and as soon as one of the note's visual timepoint is bigger than the screen height, I break the for loop. This only works if the note collection is sorted after their timepoints. But as a result, the rendering performance of the notes is not limited to their collection size, but rather how many notes there currently are on screen. The only place where I can see it being a bit iffy performance wise is when the user jumps in the timeline. But as it turns out that is not really an issue, since it only needs to recalculate `myLastObjectIndex` once per jump. 
 
