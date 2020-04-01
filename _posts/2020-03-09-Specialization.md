@@ -21,7 +21,12 @@ The goal of my specialization course at The Game Assembly write an editor to a g
 
 ## Contents
 - [What is osu!mania?](#what-is-osu!mania?)
-
+- [The fileformat](#the-fileformat)
+- [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
+- [About note placement](#about-note-placement)
+- [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
+- [The Editing and placement of "BPM Points"](#the-editing-and-placement-of-"bpm-points")
+- [Resources](#resources)
 
 ## What is osu!mania?
 osu!mania is a so called "Vertically Scrolling Rhythm Game" (VSRG), which is loosely based on games such as Dance Dance Revolution, IIDX and Guitar Hero. The point of the game, is to press buttons to their respective columns, where notes fly downwards (or upwards depending on the game) to the rhythm of the song. Score is given based on how well you time your button presses with the notes positioning in relation to the "hit receptor", more info [here](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania). Those files that describes the levels layout to the song are called "beatmaps".
