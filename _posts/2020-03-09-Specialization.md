@@ -110,7 +110,7 @@ Although it works well in Visual C++, this would have to be revisited if I ever 
 
 
 ## Rendering the waveform efficiently 
-Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. To ensure the best compatability with osu, I used the audio library [BASS](https://www.un4seen.com/), which is a commonly used C library for playing audio. BASS does have a few low level functions for situations just like these. So through the documentation I found `BASS_ChannelGetData()`, which returns a pointer to the audio data. 
+Something that many users of the official osu!mania editor have been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. To ensure the best compatability with osu, I used the audio library [BASS](https://www.un4seen.com/), which is a commonly used C library for playing audio. BASS does have a few low level functions for situations just like these. So through the documentation I found `BASS_ChannelGetData()`, which returns a pointer to the audio data. 
 ```cpp
 mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
 myWaveFormData = (float*)std::malloc(mySongByteLength);
@@ -161,7 +161,7 @@ for (int t = 0; t < songLengthMS; t += myWaveFormSliceSize)
 	myWaveFormStructure.push_back({ surface, time });
 }
 ```
-For rendering, it was as easy as finding the index of a several screenpoints with `(timePointMS / myWaveFormSliceSize)`, and rendering those slices with that index. 
+For rendering, it was as easy as finding the index of several screenpoints with `(timePointMS / myWaveFormSliceSize)`, and rendering those slices with that index. 
 ```cpp
 for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSliceSize)
 {
@@ -183,7 +183,7 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 `DrawWaveFormSliceAtIndex` is used to draw the slices based various editor parameters.
 
 ## Conclusion
-I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful experience, since I encountered problems such as compatability, adhering to file formats and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
+I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
 
 ## Resources
 - [Encore](https://github.com/VortexCoyote/Encore)
