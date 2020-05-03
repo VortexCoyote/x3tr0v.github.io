@@ -105,11 +105,13 @@ for (unsigned int noteIndex = myLastObjectIndex; noteIndex < myObjectData->size(
 
 
 ## About note placement
-With note rendering in place, I was worried about the next potential performance hog. Since the note collection needs to be sorted at all times, inserting a new note means that I would push back the new note into the collection, and sort it. With `std::sort` this is surprisingly fast. Why? Well, looking at the Visual C++ implementation for `std::sort`, we can see that it uses a combination of quick sort, heap sort and insertion sort for different cases. All of these cover most cases, including if the collection is mostly sorted, which it is in my case.
+With note rendering in place, I was worried about the next potential performance hog. Since the note collection needs to be sorted at all times, inserting a new note means that I would push back the new note into the collection, and sort it. With `std::sort` this is surprisingly fast. Why? Well, looking at the Visual C++ implementation for `std::sort`, we can see that it uses a combination of quick sort, heap sort and insertion sort for different cases. All of these cover most cases, including if the collection is mostly sorted, which it is in my case. 
+
+Although it works well in Visual C++, this would have to be revisited if I ever decide to port it over to another platform such as Linux, or even Mac, since entirely different compilers would have to be used, which could potentially have a different implementation of std::sort.
 
 
 ## Rendering the waveform efficiently 
-Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. Being required to the audio library [BASS](https://www.un4seen.com/) (I use BASS to maintain compatability), this was a bit of a pain since the documentation is old. But searching through forum posts, I eventually found out that you can use the `BASS_ChannelGetData()` function to get a pointer to the audio data. 
+Something that many users of the official osu!mania editor has been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. To ensure the best compatability with osu, I used the audio library [BASS](https://www.un4seen.com/), which is a commonly used C library for playing audio. BASS does have a few low level functions for situations just like these. So through the documentation I found `BASS_ChannelGetData()`, which returns a pointer to the audio data. 
 ```cpp
 mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
 myWaveFormData = (float*)std::malloc(mySongByteLength);
