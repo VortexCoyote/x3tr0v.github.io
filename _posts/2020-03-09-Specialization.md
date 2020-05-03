@@ -40,21 +40,16 @@ Lastly, I'm personally a map creator, so creating maps with my own tool allows m
 ## Rendering notes that are on screen from a big collection
 As the title suggests, the problem here is rendering notes that are on screen from a big collection, while still maintaining the ability to scroll through the entire beatmap dynamically. First, we need to declare how a "note" is defined. A note is defined by a timepoint which represents where the note is in the song in milliseconds (the format that osu! is using), and a column, which describes which column the note's in. 
 ```cpp
-struct TimeFieldObject
+struct NoteData
 {
 	int timePoint = 0;
-	float visibleTimePoint = -1.f;
-};
-
-struct NoteData : public TimeFieldObject
-{
 	int column = 0;	
   
 	bool selected = false;
 	bool hasMoved = false;
 };
 ```
-In code, a note is purely data and thus is declared as a struct with public members. I've also made bass struct called `TimeFieldObject` which is used as a base for all types that's represented on the timeline, such as beatlines for instance. Keep in mind that I've removed some variables for the sake of keeping it simple and focused. 
+In this case, I represent a note as a struct since I find it more convenient to let data be data, which also serves as a preperation for binary saving/loading of beatmaps in the future. 
 
 The naive way of doing this would be to iterate over every note in the beatmap, and check which ones are on screen and then render them. The issue with this approach is that the performance is bound to the size of the beatmap in question, which could be described as a O(n) complexity. In this case, we wan't something close to a O(1) complexity, since you should ideally be able to create beatmaps based on all types of songs, which includes longer ones. 
 
