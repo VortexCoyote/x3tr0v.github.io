@@ -27,6 +27,7 @@ The goal of my specialization course at The Game Assembly was to write an editor
 - [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
+- [About Audio Compatibility](#about-audio-compatibility)
 - [Conclusion](#conclusion)
 - [Feature Showcase](#feature-showcase)
 - [Resources](#resources)
@@ -111,7 +112,7 @@ Although it works well in Visual C++, this would have to be revisited if I ever 
 
 
 ## Rendering the waveform efficiently 
-Something that many users of the official osu!mania editor have been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. To ensure the best compatability with osu, I used the audio library [BASS](https://www.un4seen.com/), which is a commonly used C library for playing audio. BASS does have a few low level functions for situations just like these. So through the documentation I found `BASS_ChannelGetData()`, which returns a pointer to the audio data. 
+Something that many users of the official osu!mania editor have been missing, is a waveform. A waveform is useful for all kinds of things, such as visually pointing out where sounds starts and ends, which helps a great deal with timing your beatmaps. To draw the waveform, I need first and foremost the audio data. To ensure the best [compatability with osu](#about-audio-compatibility), I used the audio library [BASS](https://www.un4seen.com/), which is a commonly used C library for playing audio. BASS does have a few low level functions for situations just like these. So through the documentation I found `BASS_ChannelGetData()`, which returns a pointer to the audio data. 
 ```cpp
 mySongByteLength = BASS_ChannelGetLength(decoder, BASS_POS_BYTE);
 myWaveFormData = (float*)std::malloc(mySongByteLength);
@@ -182,6 +183,9 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 }
 ```
 `DrawWaveFormSliceAtIndex` is used to draw the slices based various editor parameters.
+
+## About Audio Compatibility
+As I mentioned before, I used the audio library "BASS" to ensure maximum compatability with osu!. But what does "compatability" mean in this case? Well, as it turns out, using a different audio library than BASS will in most, if not most cases result in audio offset. Essentially, if you were to get the current playback time of the playing audio, the result would vary from BASS to other libraries. This is due to BASS having a different encoding/decoding method than other libraries. This issue becomes the most apparent when you for example try to convert an osu!mania beatmap into another game, such as stepmania, and vice-versa. The beatmap will gain a noticable audio offset, which in most cases varies from -30 to -70 milliseconds. This further makes this type of tool development more interesting, since it's one of those issues that you wouldn't expect being an issue to begin with. 
 
 ## Conclusion
 I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a giving experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
