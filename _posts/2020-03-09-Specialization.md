@@ -9,7 +9,7 @@ onhome: true
 # An editor for osu!mania
 
 ## Screenshot
-![](../assets/img/encore_1.png)
+![](../assets/img/encore_screenshot.png)
 
 ## Details:
 - 5 Weeks Part-Time
@@ -28,6 +28,7 @@ The goal of my specialization course at The Game Assembly was to write an editor
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
 - [Conclusion](#conclusion)
+- [Feature Showcase](#feature-showcase)
 - [Resources](#resources)
 
 
@@ -184,6 +185,23 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 
 ## Conclusion
 I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
+
+## Feature Showcase
+![](../assets/img/editing.gif)
+How you place notes and holds alike, and removing them.
+
+![](../assets/img/copypaste.gif)
+If you copy a selection and paste it, you will get a preview of the paste and allowed to place it where ever you like.
+
+![](../assets/img/navigation.gif)
+Showing how you can navigate the beatmap, and that zooming in and out is possible. 
+
+![](../assets/img/timepointediting.gif)
+This is how you edit BPM points, which are used for snapping notes and holds to the beat.
+
+![](../assets/img/multiplekeymodes.gif)
+All keymodes from 1 key to 16 keys are supported.
+
 
 ## Resources
 - [Encore](https://github.com/VortexCoyote/Encore)
