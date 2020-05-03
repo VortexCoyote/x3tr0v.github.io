@@ -2,6 +2,7 @@
 layout: post
 img: thumbnail_encore.png
 title: Encore
+permalink: /Encore/
 description: An editor for osu!mania
 onhome: true
 ---
