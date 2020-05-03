@@ -25,7 +25,7 @@ navigation:                  # (optional) site navigation in the header
   - about.md
 
 icons:                       # (optional) icons in the header, see http://fontawesome.com/icons
-  envelope: "mailto:wianso98@gmail.com"
+  envelope: "mailto:andreas.winthersorman@gmail.com"
   github: "https://github.com/VortexCoyote"
   linkedin: "https://www.linkedin.com/in/andreas-winther-sorman-b49065b5/"
   # rss: "/feed.xml"
