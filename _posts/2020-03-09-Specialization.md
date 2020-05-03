@@ -16,7 +16,7 @@ onhome: true
 - Written in Visual C++ within openFrameworks, with the ImGui and BASS library
 - Had prepared a small engine for parsing beatmaps and rendering them before the start of the specialization course
 
-In this post I will bring up some of the more interesting and niche problems I encountered while developing Encore that you otherwise normally wouldn't encounter developing tools and editors for other types of games.  
+In this post I will bring up some of the more interesting and niche problems I encountered while developing Encore that you otherwise wouldn't encounter developing tools and editors for other types of games.  
 
 ## Goal and Purpose
 The goal of my specialization course at The Game Assembly was to write an editor for a game called [osu!](https://osu.ppy.sh/), and for a specific gamemode within that game called [osu!mania](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania). The purpose of this project was to get more experience writing a tool for a specific game, while encountering new and unique problems along the way. 
@@ -184,7 +184,7 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 `DrawWaveFormSliceAtIndex` is used to draw the slices based various editor parameters.
 
 ## Conclusion
-I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
+I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a giving experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
 
 ## Feature Showcase
 How you place notes and holds alike, and removing them.
