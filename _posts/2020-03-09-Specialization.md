@@ -179,7 +179,7 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 `DrawWaveFormSliceAtIndex` is used to draw the slices based various editor parameters.
 
 ## Conclusion
-I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful progress, since I encountered problems such as compatability, adhering to file formats and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
+I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a useful experience, since I encountered problems such as compatability, adhering to file formats and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
 
 ## Resources
 - [Encore](https://github.com/VortexCoyote/Encore)
