@@ -12,7 +12,7 @@ onhome: true
 ![](../assets/img/encore_1.png)
 
 ## Details:
-- 5 Weeks Half-Time
+- 5 Weeks Part-Time
 - Written in Visual C++ within openFrameworks, with the ImGui and BASS library
 - Had prepared a small engine for parsing beatmaps and rendering them before the start of the specialization course
 
