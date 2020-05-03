@@ -191,16 +191,24 @@ I'm happy with how Encore turned out, as it is my current editor of choice when 
 How you place notes and holds alike, and removing them.
 
 
+
+
 ![](../assets/img/copypaste.gif)
 If you copy a selection and paste it, you will get a preview of the paste and allowed to place it where ever you like.
+
+
 
 
 ![](../assets/img/navigation.gif)
 Showing how you can navigate the beatmap, and that zooming in and out is possible. 
 
 
+
+
 ![](../assets/img/timepointediting.gif)
 This is how you edit BPM points, which are used for snapping notes and holds to the beat.
+
+
 
 
 ![](../assets/img/multiplekeymodes.gif)
