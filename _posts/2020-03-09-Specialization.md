@@ -21,7 +21,7 @@ The goal of my specialization course at The Game Assembly was to write an editor
 
 ## Content
 - [What is osu!mania?](#what-is-osu!mania?)
-- [The fileformat](#the-fileformat)
+- [Motivation](#motivation)
 - [Rendering notes that are on screen from a big collection](#rendering-notes-that-are-on-screen-from-a-big-collection)
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
@@ -32,6 +32,10 @@ The goal of my specialization course at The Game Assembly was to write an editor
 ## What is osu!mania?
 osu!mania is a so called "Vertically Scrolling Rhythm Game" (VSRG), which is loosely based on games such as Guitar Hero, Dance Dance Revolution and IIDX. The point of the game, is to press buttons to their respective columns, where notes fly downwards (or upwards depending on the game) to the rhythm of the song. Score is given based on how well you time your button presses with the notes positioning in relation to the "hit receptor", more info [here](https://osu.ppy.sh/help/wiki/Game_Modes/osu!mania). Those files that describes the levels layout to the song are called "beatmaps".
 
+## Motivation
+The current official editor for creating these beatmaps is already solid as it is, but still lacks some significant features due to it not being updated for years. An example of this would be the amount of beat divisions supported. Currently, the official editor only supports 1/2, 1/3, 1/4, 1/6, 1/8, 1/12 and 1/16 beat divisions, which is not enough considering that some songs uses uneven beat divisions such as 1/5 and/or 1/7. Other features that the current editor lacks are features such as "freeform" note placement (allows you to place the note at any milliesecond in the timeline, for more freeform type of songs), a visual waveform of the song, and changing the songs pitch in realtime which allows you to listen to the songs details more closely. 
+
+Lastly, I'm personally a map creator, so creating maps with my own tool allows me to constantly improve, develop and iterate the editor with new features that also could serve other map creators alike, who also serve as a great source of feedback which helps me even further my experience in creating specialized tools. 
 
 ## Rendering notes that are on screen from a big collection
 As the title suggests, the problem here is rendering notes that are on screen from a big collection, while still maintaining the ability to scroll through the entire beatmap dynamically. First, we need to declare how a "note" is defined. A note is defined by a timepoint which represents where the note is in the song in milliseconds (the format that osu! is using), and a column, which describes which column the note's in. 
