@@ -12,7 +12,7 @@ onhome: false
 - [GameObjects](#gameobjects)
 - [The System](#the-system)
 - [Compiletime Component Registration an its Benefits](#compiletime-component-registration-an-its-benefits)
-
+- [Conclusion](#conclusion)
 
 ## Background
 I've always loved to try out new ways of handling entities in games, which has lead to a lot of experiments over the years. So when the programmers of Oddbox were deciding the engine structure, I got the task os creating a Component System for our engine. 
@@ -242,7 +242,8 @@ Component* RetreiveComponent(std::string aComponent)
 	(((std::type_index(typeid(Args)) == aComponent ?
 		[&retreivedComponent, &componentIndex, this]
 		{
-			retreivedComponent = (Component*)(((CU::ObjectPool<Args, MAX_GAMEOBJECT>*)myComponents[componentIndex]))->Retrieve();
+			retreivedComponent = (Component*)(((CU::ObjectPool<Args, 			 			
+							    MAX_GAMEOBJECT>*)myComponents[componentIndex]))->Retrieve();
 		}() :
 		[]
 		{	
@@ -255,3 +256,71 @@ Component* RetreiveComponent(std::string aComponent)
 ```
 
 This ternary gets unfolded for each Component, and have two lambda outcomes that returns void. The first one sets `retreivedComponent` if it has found the relevant Component type, while the other lambda does nothing. 
+
+Another big benefit this method has, is that you can find a base class's derived class:
+```cpp
+void CloneSpecificComponent(std::type_index aComponentType, Component* aFrom, Component* aTo)
+{
+	(((std::type_index(typeid(Args)) == aComponentType ?
+		[&aFrom, &aTo]
+		{
+			*((Args*)(aTo)) = *((Args*)(aFrom));
+		}() 
+			:
+		[]
+		{
+			// not the component type
+		}()))
+	, ...);
+}
+```
+
+This function is used from within another function in GameObject, which is used to clone a GameObject into another. The GameObject only have the base Component pointers to the Components themselve, while still having the `std::type_index` for those Components. Because of this, we need to find which the specific type the Component is, cast it to the right type, and execute the `=` operator on that Component. In the case of the Component in question having pointers to relevant data, the creator of that Component can simply just overload the `=` operator and write their own copy method. 
+
+The biggest benefit all of this had, was that we could attach Components to GameObject through an identifying string. Since we had a blueprint system where other disciplines can define GameObjects through a .json file, we saved a lot of time on not double registering (acknowledge the Component type more than once in the codebase) Components. Example of a blueprint:
+```json
+{
+  "id": 10,
+  "tag": "Hazmat",
+  "components": [
+    {
+      "type": "Transform",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "rx": 0,
+        "ry": 0,
+        "rz": 0,
+        "sx": 1,
+        "sy": 1,
+        "sz": 1
+      }
+    },
+    {
+      "type": "Model",
+      "data": {
+        "mesh": "Assets/Characters/Hazmat/CH_NPC_Hazmat_SK.fbx",
+		"shouldRender": true
+      }
+    },
+    {
+      "type": "AnimationController",
+      "data": {
+      }
+    },
+    {
+      "type": "EmitterSlotCollection",
+      "data": {
+			"slotcollection":"Particles/slots_hazmat.json"
+      }
+    }
+  ]
+}
+```
+
+The loading of `"data"` could be defined through the virtual function `virtual void InitDataFromJson(const rapidjson::Value& aData)`.
+
+
+## Conclusion
+Writing this Component System served as an useful experience in engine/backend development in general, where I encountered many specific issues while maintaining the goal of keeping the interface as clean and user-friendly as possible. It was also a useful experience in the sense of that I gained more knowledge within C++, and that it opened my eyes for usecases. 
