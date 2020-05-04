@@ -180,11 +180,78 @@ This essentially means that you can only have one instance of a Component type a
 
 
 ## The System
-The Component System itself manages all the Components and its collections based on various situations. Components can be enabled or disabled as the user wish (which makes them not update), which are handled through sperate collections. 
+The Component System itself manages all the Components and its collections based on various situations. Components can be enabled or disabled (which describes whether their active or not) as the user wish (which makes them not update), which are handled through sperate collections. 
 ```cpp
 void* myComponents[ARGS_COUNT] = { nullptr };
 std::vector<Component*> myActiveComponents[ARGS_COUNT];
 ```
-`myComponents` is essentially one giant memory block of all Components, while `myActiveComponents` includes a std::vector for each Component type
+`myComponents` is essentially one giant memory block of all Components, while `myActiveComponents` includes a std::vector for each Component type, which stores pointers to the current active Components of that type. The way the active Components gets updated looks like this:
+```cpp
+for (int componentType = 0; componentType < ARGS_COUNT; componentType++)
+	{
+	for (myActiveComponentIndex[componentType] = myActiveComponents[componentType].size() - 1;
+	     myActiveComponentIndex[componentType] >= 0; 
+	   --myActiveComponentIndex[componentType] )
+	{
+		myActiveComponents[componentType][myActiveComponentIndex[componentType]]->Update(aDeltaTime);
+	}
+}
+```
+
+The actual update order of the Components it determined by the variadic template regristration.
+
 
 ## Compiletime Component Registration an its Benefits
+As I mentioned earlier, all of the Components are registered at compiletime through a variadic templated class, which is the Component System itself:
+```cpp
+template<class ... Args>
+class ComponentSystem : public CU::VariadicIndexer<Args ... >, public ComponentInterface
+```
+
+`CU::VariadicIndexer<Args ... >` is used to assign an index to each argument within the variadic template at compiletime (method found [here](https://stackoverflow.com/questions/30736242/how-can-i-get-the-index-of-a-type-in-a-variadic-class-template)). This is extremely useful, because it allows us to generate look-up tables through a fold-expression. For instance:
+```cpp
+(RegisterTypeLookup<Args>(),	...);
+```
+The `...` is a so called [fold expression](https://en.cppreference.com/w/cpp/language/fold), which essentially unpacks the expression for each argument in the variadic template. So in this case, `RegisterTypeLookup` gets pasted for each argument, while `Args` gets replaced with a type from the argument list.
+
+```cpp
+template<class T>
+void RegisterTypeLookup()
+{
+	myTypeIndexLookupTable[std::type_index(typeid(T))] = V_INDEX(T);
+		
+	std::string name = typeid(T).name();
+	name.erase(0, 18);
+
+	myStringNameLookupTable[name] = V_INDEX(T);
+	myIDNameLookupTable[V_INDEX(T)] = name;
+}
+```
+
+`T` is in this case the Component in question, and `V_INDEX(T)` is a macro that gives us the relevant index to that type within the variadic template, which is based on the `CU::VariadicIndexer<Args ... >` that I descrived earlier. 
+
+Why is this so useful then? It allows us to essentially find a type from a relevant index, ID, or even a string, which means that we can attach Components to a GameObject with just a string defining the Component type. 
+
+This also means that we would have to branch in our fold expression to find the relevant Component, which is not as trivial as writing an `if` statement within the fold expression, since `if`'s are not expressions. But we can achieve the same behaviour through using a ternary operator, with two lambdas for each outcome:
+```cpp
+Component* RetreiveComponent(std::string aComponent)
+{
+	Component* retreivedComponent = nullptr;
+	int componentIndex = myStringNameLookupTable[aComponent];
+
+	(((std::type_index(typeid(Args)) == aComponent ?
+		[&retreivedComponent, &componentIndex, this]
+		{
+			retreivedComponent = (Component*)(((CU::ObjectPool<Args, MAX_GAMEOBJECT>*)myComponents[componentIndex]))->Retrieve();
+		}() :
+		[]
+		{	
+			// not the component type
+		}()))
+	, ...);
+
+	return retreivedComponent;
+}
+```
+
+This ternary gets unfolded for each Component, and have two lambda outcomes that returns void. The first one sets `retreivedComponent` if it has found the relevant Component type, while the other lambda does nothing. 
