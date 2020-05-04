@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Component System
-permalink: /Component System/
+permalink: /Component-System/
 description: A Unity-esque Component System 
 onhome: false
 ---
