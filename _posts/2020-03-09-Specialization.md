@@ -7,6 +7,10 @@ description: An editor for osu!mania
 onhome: true
 ---
 
+html {
+  scroll-behavior: smooth;
+}
+
 # An editor for osu!mania
 
 ## Screenshot
