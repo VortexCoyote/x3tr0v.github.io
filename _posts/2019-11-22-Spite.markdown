@@ -17,7 +17,29 @@ project: true
 ## Contributions
 - **Synced Based Threading** - Early in the project I got the task of multi-threading our rendering and logic thread. I wanted to make this generalized and expandable, so I created a general way of defining thread work and sync work. Those two could be nestled, which gives the potential of creating big "thread trees" if the user wishes.
 - **Node Editor Implementation** - An in-engine ImGui-based node graph editor for creating level scripts (one script that runs on a single level), based on the node-editor we got from the scripting course. 
-- **Event Node Interfacer** - A method to expose events to the node system, where the user of the node editor could both register flows on receiving an event, and trigger an event.
+- **Event Node Interfacer** - A method to expose events to the node system, where the user of the node editor could both register flows on receiving an event, and trigger an event. Exposing an Event was as easy as registering the event in a variadic templated class as seen here:
+```cpp
+NodeEventInterface::GetInstance().ExposeEvents
+<
+		Event::EmitterSlotRefresh,
+		Event::FreeCamOff,
+		Event::FadeIn,
+		Event::FadeOut,
+		Event::NoFade,
+		Event::AllFade,
+		Event::Interacted,
+		Event::FlashlightTurnedOn,
+		Event::FlashlightTurnedOff,
+		Event::WalkieTalkieTurnedOn,
+		Event::WalkieTalkieTurnedOff,
+		Event::WalkieTalkieBreak,
+		Event::GameOver,
+		Event::FlashlightPickedUp,
+		Event::PlayerCanSprint,
+		Event::StartRiser
+>();
+``` 
+
 - **Enemy AI** - Wrote the base state-machine that controls the AI, and the enemy AI's behaviour, which includes its movement, attacks, animation states and other response behaviours to the players attacks.
 - **Boss AI** - Wrote the behaviour for the final boss based on the state-machine I mentioned earlier. States includes melee attack, fire attack, and transitional states between different phases. 
 
