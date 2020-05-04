@@ -82,32 +82,32 @@ GI::PushRenderCommand( myMeshHandle.GetID(), myAnimationControllerID, myShaderIn
 
 The Components are registered to the Component System through a variadic template, a decision which I will discuss in the [Compiletime Component Registration an its Benefits](#compiletime-component-registration-an-its-benefits) section. The order of the Components in the registration will determine the update order of each Component. 
 ```cpp
-	ComponentManager::GetInstance().RegisterComponents
-	<
-		Components::Transform,
-		Components::ThirdPersonCamera,
-		Components::PlayerController,
-		Components::Flashlight,
-		Components::WalkieTalkie,
-		Components::Model,
-		Components::Light,
-		Components::Interactor,
-		Components::Interactable,
-		Components::AnimationController,
-		Components::OBBCollider,
-		Components::Trigger,
-		Components::StaticEmitter,
-		Components::EmitterSlotCollection,
-		Components::BurstEmitter,
-		Components::MeshEffectCollection,
-		Components::StaticPhysicsBox,
-		Components::StaticPhysicsTriangleMesh,
-		Components::AudioComponent,
-		Components::Pot,
-		Components::GlobalParameterZone,
-		Components::AudioSource,
-		Components::DynamicRigidBody
-	>();
+ComponentManager::GetInstance().RegisterComponents
+<
+	Components::Transform,
+	Components::ThirdPersonCamera,
+	Components::PlayerController,
+	Components::Flashlight,
+	Components::WalkieTalkie,
+	Components::Model,
+	Components::Light,
+	Components::Interactor,
+	Components::Interactable,
+	Components::AnimationController,
+	Components::OBBCollider,
+	Components::Trigger,
+	Components::StaticEmitter,
+	Components::EmitterSlotCollection,
+	Components::BurstEmitter,
+	Components::MeshEffectCollection,
+	Components::StaticPhysicsBox,
+	Components::StaticPhysicsTriangleMesh,
+	Components::AudioComponent,
+	Components::Pot,
+	Components::GlobalParameterZone,
+	Components::AudioSource,
+	Components::DynamicRigidBody
+>();
 ```
 
 The GameObjects which the Components are attached to, aren't updating the Components themselves, but the Components are rather updated by the Component System in collections of their own type. For instance, all of the currently active Transform Components will update before all of the active Model Components. This ensures us the update order control we need when developing various games. 
@@ -171,16 +171,20 @@ public:
 ```
 
 Components can be attached through a templated function, but also with a std::string, which I will touch upon later in the [Compiletime Component Registration an its Benefits](#compiletime-component-registration-an-its-benefits) section! An Example of an attachment of a Component would be a player:
-```cpp myPlayer->AttachComponent<Components::Transform>();```
+`myPlayer->AttachComponent<Components::Transform>();`
 
 The pointers to the Components attached to the GameObject are in this case saved in a std::map, with a std::type_index as its key. 
-```cpp std::map<std::type_index, Component*> myComponents;```
+`std::map<std::type_index, Component*> myComponents;`
 
 This essentially means that you can only have one instance of a Component type attached to the GameObject, which differs from for instance Unity's Component System, where multiple instances of the same type can be attached. The reasoning behind this was to make the whole system iterable towards a ECS (Entity Component System), which we didn't really have time to do at the end. 
 
 
 ## The System
-
-
+The Component System itself manages all the Components and its collections based on various situations. Components can be enabled or disabled as the user wish (which makes them not update), which are handled through sperate collections. 
+```cpp
+void* myComponents[ARGS_COUNT] = { nullptr };
+std::vector<Component*> myActiveComponents[ARGS_COUNT];
+```
+`myComponents` is essentially one giant memory block of all Components, while `myActiveComponents` includes a std::vector for each Component type
 
 ## Compiletime Component Registration an its Benefits
