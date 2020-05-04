@@ -7,7 +7,7 @@ title: "Oddbox"
 - [Hannes Rehnström](https://hannesrehnstrom.com/)
 - [Sam Stålhandske](https://www.samstalhandske.com/)
 - [Olle Lannér](https://www.ollelanner.com/)
-- [Daniel Vindhjärta]()
+- [Daniel Vindhjärta](http://www.vindhjarta.eu/)
 
 ## Animation
 - [Alfons Sahlberg](https://alfonssahlberg.myportfolio.com/)
