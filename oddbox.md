@@ -12,7 +12,7 @@ title: "Oddbox"
 ## Animation
 - [Alfons Sahlberg](https://alfonssahlberg.myportfolio.com/)
 - [Ville Westermark](https://villewestermark.com/)
-- [Ivar Roxner Kinny](https://ivarkinny.myportfolio.com/)
+- [Ivar Roxner Kinny](https://ivarroxnerkinny.com/)
 
 ## Level Designers
 - [Josefin Matsson](https://www.josefinmatsson.com/)
