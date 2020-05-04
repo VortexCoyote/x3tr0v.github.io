@@ -15,19 +15,19 @@ onhome: false
 - [Conclusion](#conclusion)
 
 ## Background
-I've always loved to try out new ways of handling entities in games, which has lead to a lot of experiments over the years. So when the programmers of Oddbox were deciding the engine structure, I got the task os creating a Component System for our engine. 
+I've always loved to try out new ways of handling entities in games, which has lead to a lot of experiments with different entity systems over the years. So when the programmers of Oddbox were deciding the engine structure, I got the task of creating a Component System for our engine. 
 
 The one thing I wanted to focus on was the interface itself for the Component System. I wanted it to be as easy to use as possible, so that we could save as much time as possible, and minimize any confusion in how the Component System is supposed to be used. 
 
 
 ## The Structure
-The structure is pretty simple at a surface level. GameObject are essentially the in-game actors who controls objects in a given seen, which can include AI, the player, or even a static object such as a rock. A GameObject is defined as a collection of "Components". 
+The structure is pretty simple at a surface level. GameObject are essentially the in-game actors who controls objects in a given scene, which can include AI, the player, or even a static object such as a rock. A GameObject is defined as a collection of "Components". 
 
-Components themselves are defined as data with certain logic that can be invoked on that data. An example would be a car GameObject, which can for instance have a wheel Component attached to it. The wheel component is responsible for the steering of the car, and acts upon it. 
+Components themselves are defined as data with certain logic that can be invoked on that data. An example would be a car GameObject, which can for instance have a wheels Component attached to it. The wheels component is responsible for the steering of the car, and acts upon it. 
 
 
 ## Components
-So how does this translate to code? I decided to make Component a base class, which newly created Components can inherit from. 
+So how does this translate into code? I decided to make Component a base class, which newly created Components can inherit from. 
 ```cpp
 class Component
 {
@@ -75,12 +75,12 @@ inline T* Component::GetComponent()
 }
 ```
 
-An exampe of an usecase, would be our Model Component, which pushes a render command in its defined logic.
+An exampe of an use case, would be our Model Component, which pushes a render command in its defined logic.
 ```cpp
 GI::PushRenderCommand( myMeshHandle.GetID(), myAnimationControllerID, myShaderInstanceID, GetComponent<Transform>()->GetPosition(), GetComponent<Transform>()->GetForward(), GetComponent<Transform>()->GetUp(), GetComponent<Transform>()->GetScale(), myColor );
 ```
 
-The Components are registered to the Component System through a variadic template, a decision which I will discuss in the [Compiletime Component Registration an its Benefits](#compiletime-component-registration-an-its-benefits) section. The order of the Components in the registration will determine the update order of each Component. 
+The Components are registered to the Component System through a variadic template, a decision which I will discuss in the [Compiletime Component Registration an its Benefits](#compiletime-component-registration-an-its-benefits) section. The order of the Components in the registration will determine the update order of each Component Type. 
 ```cpp
 ComponentManager::GetInstance().RegisterComponents
 <
@@ -176,11 +176,11 @@ Components can be attached through a templated function, but also with a std::st
 The pointers to the Components attached to the GameObject are in this case saved in a std::map, with a std::type_index as its key. 
 `std::map<std::type_index, Component*> myComponents;`
 
-This essentially means that you can only have one instance of a Component type attached to the GameObject, which differs from for instance Unity's Component System, where multiple instances of the same type can be attached. The reasoning behind this was to make the whole system iterable towards a ECS (Entity Component System), which we didn't really have time to do at the end. 
+This essentially means that you can only have one instance of a Component type attached to the GameObject, which differs from for instance Unity's Component System, where multiple instances of the same type can be attached. The reasoning behind this was to make the whole system iterable towards an ECS (Entity Component System), which we didn't really have time to do at the end. 
 
 
 ## The System
-The Component System itself manages all the Components and its collections based on various situations. Components can be enabled or disabled (which describes whether their active or not) as the user wish (which makes them not update), which are handled through sperate collections. 
+The Component System itself manages all the Components and its collections based on various situations. Components can be enabled or disabled (which describes whether they're active or not) as the user wish, which are handled through sperate collections. 
 ```cpp
 void* myComponents[ARGS_COUNT] = { nullptr };
 std::vector<Component*> myActiveComponents[ARGS_COUNT];
@@ -206,6 +206,14 @@ As I mentioned earlier, all of the Components are registered at compiletime thro
 ```cpp
 template<class ... Args>
 class ComponentSystem : public CU::VariadicIndexer<Args ... >, public ComponentInterface
+{	
+public:
+
+	ComponentSystem()   
+	{
+		(RegisterComponentType<Args>(), ...);
+		(RegisterTypeLookup<Args>(),	...);
+	}
 ```
 
 `CU::VariadicIndexer<Args ... >` is used to assign an index to each argument within the variadic template at compiletime (method found [here](https://stackoverflow.com/questions/30736242/how-can-i-get-the-index-of-a-type-in-a-variadic-class-template)). This is extremely useful, because it allows us to generate look-up tables through a fold-expression. For instance:
@@ -323,4 +331,4 @@ The loading of `"data"` could be defined through the virtual function `virtual v
 
 
 ## Conclusion
-Writing this Component System served as an useful experience in engine/backend development in general, where I encountered many specific issues while maintaining the goal of keeping the interface as clean and user-friendly as possible. It was also a useful experience in the sense of that I gained more knowledge within C++, and that it opened my eyes for usecases. 
+Writing this Component System served as an useful experience in engine/backend development in general, where I encountered many specific issues while maintaining the goal of keeping the interface as clean and user-friendly as possible. It was also a useful experience in the sense of that I gained more knowledge within C++, and that it opened my eyes for use cases. 
