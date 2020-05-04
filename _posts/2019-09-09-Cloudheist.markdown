@@ -15,7 +15,7 @@ project: true
 - Made in our own DirectX11 based C++ engine
 
 ## Contributions
-- **Component System** - The system that's the backbone of every entity in the game. Inspired by Unity's Component System with the exception that a GameObject can only have one instance of each component type. The Component System's interface was designed to be as user-friendly as possible.
+- **Component System** - The system that's the backbone of every entity in the game. Inspired by Unity's Component System with the exception that a GameObject can only have one instance of each component type. The Component System's interface was designed to be as user-friendly as possible. More info [here](https://www.andreaswinthersorman.com/Component%20System/).
 - **Spline-Based Player Movement** - I implemented both the spline and the spline-based player movement, which is similar to how Starfox does it. Values for the player movement was exposed via ImGui so that our level designers could find the right values for the movement. 
 - **GameObject Debugger** - A tool to debug GameObject via clicking on a object in-game. Once a object is clicked, a ImGui window will open with a list of each component. Each component have the ability to display certain data that the creator of the component wish to expose to the debug system.
 - **Particle Editor** - An editor to make our Technical Artists lifes easier, where you can both edit particle and emitter parameters, and save it to a .json file. 
