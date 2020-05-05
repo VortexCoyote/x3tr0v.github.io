@@ -7,8 +7,8 @@ title: "Oddbox"
 - [Andreas Winther Sorman](https://www.andreaswinthersorman.com/)
 - [Daniel Vindhjärta](http://www.vindhjarta.eu/)
 - [Hannes Rehnström](https://hannesrehnstrom.com/)
-- [Sam Stålhandske](https://www.samstalhandske.com/)
 - [Olle Lannér](https://www.ollelanner.com/)
+- [Sam Stålhandske](https://www.samstalhandske.com/)
 
 ## Animation
 - [Alfons Sahlberg](https://alfonssahlberg.myportfolio.com/)
