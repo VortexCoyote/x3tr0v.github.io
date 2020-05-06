@@ -25,7 +25,7 @@ layout: default
     {% endfor %}
 
     <br>
-    <header><h1>Other Posts</h1></header>
+    <header><h1>Other Projects</h1></header>
     {% for post in site.posts %}
       {% unless post.project %}
           {%- assign date_format = site.date_format | default: "%B %d, %Y" -%}
