@@ -15,7 +15,7 @@ project: true
 - Made in our own DirectX11 based C++ engine
 
 ## Contributions
-- **Synced Based Threading** - Early in the project I got the task of multi-threading our rendering and logic work. I wanted to make this generalized and expandable, so I created a way of defining thread work and sync work. Those two could be nestled, which gives the potential of creating big "thread trees" if the user wishes. I had plans to even integrate this into our Component System, where you could easily define a thread tree which is based on which dependencies each component have. Unfortunately, this is not something I had time to implement at the end, but it's something that I'd like to revisit in the near future. 
+- **Synced Based Threading** - Early in the project I got the task of multi-threading our rendering and logic work. I wanted to make this generalized and expandable, so I created a way of defining thread work and sync work. In this case, the sync work would execute double buffer flips for render commands or even other types of data. Both thread work and sync work could be nestled, which gives the potential of creating big "thread trees" if the user wishes. I had plans to even integrate this into our Component System, where you could easily define a thread tree which is based on which dependencies each component have. Unfortunately, this is not something I had time to implement at the end, but it's something that I'd like to revisit in the near future. 
 
 - **Node Editor Implementation** - An in-engine ImGui-based node graph editor for creating level scripts (one script that runs on a single level), based on the node-editor we got from the scripting course. 
 
