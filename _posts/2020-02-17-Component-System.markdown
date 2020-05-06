@@ -15,7 +15,7 @@ onhome: false
 - [Conclusion](#conclusion)
 
 ## Background
-I've always loved to try out new ways of handling entities in games, which has lead to a lot of experiments with different entity systems over the years. So when the programmers of Oddbox were deciding the engine structure, I got the task of creating a Component System for our engine. 
+I've always loved to try out new ways of handling entities in games, which has lead to a lot of experiments with different entity systems over the years. So when we (the programmers of Oddbox) were deciding the engine structure, I got the task of creating a Component System for our engine. 
 
 The one thing I wanted to focus on was the interface itself for the Component System. I wanted it to be as easy to use as possible, so that we could save as much time as possible, and minimize any confusion in how the Component System is supposed to be used. 
 
