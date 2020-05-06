@@ -3,6 +3,8 @@ layout: page
 title: "About"
 ---
 
-Cooperative and motivated swedish programmer with a passion for game development who loves learning new things and getting to know others. Studied at The Game Assembly with a big interest in tools, shaders, engine and back-end development in general, looking for an internship.
+I'm a game programmer who's mostly interested in tools development, but also back-end development in general. 
+
+I like cooperating, communicating and helping other people, which is where my interest in tools development comes from. A part of that is also present in my interest in back-end development, since I love designing systems with simple and userfriendly interface for other to use!
 
 [Here](../assets/resume.pdf) is my resume.
