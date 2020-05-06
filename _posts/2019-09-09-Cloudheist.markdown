@@ -16,9 +16,13 @@ project: true
 
 ## Contributions
 - **Component System** - The system that's the backbone of every entity in the game. Inspired by Unity's Component System with the exception that a GameObject can only have one instance of each component type. The Component System's interface was designed to be as user-friendly as possible. More info [here](https://www.andreaswinthersorman.com/Component-System/).
-- **Spline-Based Player Movement** - I implemented both the spline and the spline-based player movement, which is similar to how Starfox does it. Values for the player movement were exposed via ImGui so that our level designers could find the right values for the movement. 
-- **GameObject Debugger** - A tool to debug GameObject via clicking on a object in-game. Once a object is clicked, a ImGui window will open with a list of each component. Each component have the ability to display certain data that the creator of the component wish to expose to the debug system.
+
+- **Spline-Based Player Movement** - I implemented both the spline and the spline-based player movement, which is similar to how Starfox does it. I tried to replicate the movement and feel from Starfox as closely as I could. Values for the player movement were exposed via an [ImGui](https://github.com/ocornut/imgui) window so that our level designers could find the right values for the movement. 
+
+- **GameObject Debugger** - A tool to debug GameObject via clicking on a object in-game. Once a object is clicked, a ImGui window will open with a list of each component. Each component have the ability to display certain data that the creator of the component wish to expose to the debug system. The logic for displaying the component specific debug data was defined through a virtual function. 
+
 - **Particle Editor** - An editor where you can both edit particle and emitter parameters, and save it to a .json file. 
+
 - **Post-Processing** - Mostly shaders such as Godrays (based on [this article](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-13-volumetric-light-scattering-post-process)), Radial-Blur (blur amount based on the current player speed) and red vinette that appears based on the players health.
 
 
