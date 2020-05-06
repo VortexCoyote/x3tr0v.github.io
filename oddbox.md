@@ -25,6 +25,6 @@ title: "Oddbox"
 - [Philip Hylen](https://philiphylen.artstation.com/)
 
 ## Technical Artists
-- [Avian Jurić]()
+- [Avian Jurić](http://avianjuric.net/)
 - [Herman Fredlund]()
 - [Madelein Nyblom](https://www.madeleinnyblom.com/)
