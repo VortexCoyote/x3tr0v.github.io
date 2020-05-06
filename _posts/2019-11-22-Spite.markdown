@@ -41,6 +41,7 @@ NodeEventInterface::GetInstance().ExposeEvents
 ``` 
 
 - **Enemy AI** - Wrote the base state-machine that controls the AI, and the enemy AI's behaviour, which includes its movement, attacks, animation states and other response behaviours to the players attacks.
+
 - **Boss AI** - Wrote the behaviour for the final boss based on the state-machine I mentioned earlier. States includes melee attack, fire attack, and transitional states between different phases. 
 
 ## Screenshots
