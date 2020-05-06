@@ -28,6 +28,8 @@ Components themselves are defined as data with certain logic that can be invoked
 
 ## Components
 So how does this translate into code? I decided to make Component a base class, which newly created Components can inherit from. 
+
+Down below you can see the interface for the component.
 ```cpp
 class Component
 {
@@ -64,7 +66,6 @@ public:
 
 	virtual void InitDataFromJson(const rapidjson::Value& aData);
 ```
-( Just included the interface for simplicity ) 
 
 Every newly created Component which inherits from Component will need to define its logic, which can both act upon its own data, or interface with some other attached Component to it's GameObject host. This can be done with the templatet function `GetComponent`, which is defined as such: 
 ```cpp
