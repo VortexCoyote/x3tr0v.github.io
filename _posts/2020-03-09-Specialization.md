@@ -28,8 +28,8 @@ The goal of my specialization course at The Game Assembly was to write an editor
 - [About note placement](#about-note-placement)
 - [Rendering the waveform efficiently](#rendering-the-waveform-efficiently)
 - [About Audio Compatibility](#about-audio-compatibility)
-- [Conclusion](#conclusion)
 - [Feature Showcase](#feature-showcase)
+- [Conclusion](#conclusion)
 - [Resources](#resources)
 
 
