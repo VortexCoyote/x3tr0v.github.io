@@ -187,9 +187,6 @@ for (int y = ofGetWindowHeight(); y >= -ofGetWindowHeight() * 2; y -= scaledSlic
 ## About Audio Compatibility
 As I mentioned before, I used the audio library "BASS" to ensure maximum compatability with osu!. But what does "compatability" mean in this case? Well, as it turns out, using a different audio library than BASS will in most, if not most cases result in an audio offset. Essentially, if you were to get the current playback time of the playing audio, the result would vary from BASS to other libraries. This is due to BASS having a different encoding/decoding method when it comes to audio files than other libraries. This issue becomes the most apparent when you for example try to convert an osu!mania beatmap into another game, such as stepmania, and vice-versa. The beatmap will gain a noticable audio offset, which in most cases varies from -30 to -70 milliseconds. This further makes this type of tool development more interesting, since it's one of those issues that you wouldn't expect being an issue in the first place. 
 
-## Conclusion
-I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a giving experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
-
 ## Feature Showcase
 How you place notes and holds alike, and removing them.
 ![](../assets/img/editing.gif)
@@ -210,6 +207,9 @@ This is how you edit BPM points, which are used for snapping notes and holds to 
 All keymodes from 1 key to 16 keys are supported.
 ![](../assets/img/multiplekeymodes.gif)
 
+
+## Conclusion
+I'm happy with how Encore turned out, as it is my current editor of choice when creating beatmaps. I learnt a lot of interesting things from developing it. Developing a tool for an actual game that others could use was a giving experience, since I encountered problems such as compatability, adhering to file formats, and specific niche issues that's almost exlusive to the game in question. Developing a tool doesn't require any general knowledge, but rather requires you to study what you're developing the tool for closely because of those niche issues. 
 
 ## Resources
 - [Encore](https://github.com/VortexCoyote/Encore)
