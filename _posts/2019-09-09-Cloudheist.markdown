@@ -22,6 +22,8 @@ project: true
 - **GameObject Debugger** - A tool to debug GameObject via clicking on a object in-game. Once a object is clicked, a ImGui window will open with a list of each component. Each component have the ability to display certain data that the creator of the component wish to expose to the debug system. The logic for displaying the component specific debug data was defined through a virtual function. 
 
 - **Particle Editor** - An editor where you can both edit particle and emitter parameters, and save it to a .json file. 
+![](../assets/img/particle_editor.png)
+The editor was made with Dear ImGui.
 
 - **Post-Processing** - Mostly shaders such as Godrays (based on [this article](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-13-volumetric-light-scattering-post-process)), Radial-Blur (blur amount based on the current player speed) and red vinette that appears based on the players health.
 
