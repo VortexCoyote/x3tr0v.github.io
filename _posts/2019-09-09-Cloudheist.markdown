@@ -23,7 +23,7 @@ project: true
 
 - **Particle Editor** - An editor where you can both edit particle and emitter parameters, and save it to a .json file. 
 ![](../assets/img/particle_editor.png)
-The editor was made with Dear ImGui.
+The editor was mainly made with [ImGui](https://github.com/ocornut/imgui).
 
 - **Post-Processing** - Mostly shaders such as Godrays (based on [this article](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-13-volumetric-light-scattering-post-process)), Radial-Blur (blur amount based on the current player speed) and red vinette that appears based on the players health.
 
