@@ -26,5 +26,5 @@ title: "Oddbox"
 
 ## Technical Artists
 - [Avian Jurić](http://avianjuric.net/)
-- [Herman Fredlund]()
+- [Herman Fredlund](https://hermanfredlund.pb.studio/)
 - [Madelein Nyblom](https://www.madeleinnyblom.com/)
